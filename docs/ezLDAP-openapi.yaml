@@ -1,0 +1,405 @@
+openapi: 3.0.1
+info:
+  title: ezLDAP API
+  description: >-
+    ezLDAP ermöglicht einen einfachen Lesezugriff auf das städtische LDAP
+    mittels einer HTTP API.
+  contact:
+    name: Michael Prankl
+    email: michael.prankl@muenchen.de
+  version: 2.0.5
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ITMKM23/ezLDAP/2.0.5
+tags:
+  - name: User
+    description: Lese/Suchzugriffe für Personen
+  - name: OU
+    description: Lese/Suchzugriffe für Organisationseinheiten (OU)
+paths:
+  /v1/ldap/user/{lhmObjectId}:
+    get:
+      tags:
+        - User
+      summary: Lookup eines Users via lhmObjectId
+      operationId: getUserByLhmObjectId
+      parameters:
+        - name: lhmObjectId
+          in: path
+          description: lhmObjectId des Users
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LdapUserDTO"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server Error
+  /v1/ldap/user/outree/{lhmObjectId}:
+    get:
+      tags:
+        - User
+      summary: Lookup des OU Baums des Users
+      operationId: ouTree
+      parameters:
+        - name: lhmObjectId
+          in: path
+          description: lhmObjectId des Users
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server Error
+  /v1/ldap/search/findByUid:
+    get:
+      tags:
+        - User
+      summary: Lookup eines Users via uid
+      operationId: getUserByUid
+      parameters:
+        - name: uid
+          in: query
+          description: uid des Users
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LdapUserDTO"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server Error
+  /v1/ldap/search/findByUidWildcard:
+    get:
+      tags:
+        - User
+      summary: Wildcard-unterstüztende Suche nach Usern via uid
+      operationId: searchUser
+      parameters:
+        - name: uid
+          in: query
+          description: uid des Users (* als Wildcards erlaubt)
+          required: true
+          schema:
+            maxLength: 2147483647
+            minLength: 3
+            type: string
+        - name: size
+          in: query
+          description: "Trefferanzahl, default: 10, Maximum: 100"
+          required: false
+          schema:
+            maximum: 100
+            type: integer
+            format: int32
+            default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LdapBaseUserDTO"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server Error
+  /v1/ldap/search/findByOu:
+    get:
+      tags:
+        - User
+      summary: Lookup von Usern via OU Kurzbezeichnung
+      operationId: findByOu
+      parameters:
+        - name: ou
+          in: query
+          description: OU Kurzbezeichnung (z.B. ITM-KM21)
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LdapBaseUserDTO"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server Error
+  /v1/ldap/outree/{ouShortCode}:
+    get:
+      tags:
+        - OU
+      summary: Lookup des OU Baums via OU Kurzbezeichnung
+      operationId: ouTree_1
+      parameters:
+        - name: ouShortCode
+          in: path
+          description: OU Kurzbezeichnung (z.B. ITM-KM21)
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server Error
+  /v1/ldap/ou/{lhmObjectId}:
+    get:
+      tags:
+        - OU
+      summary: Lookup einer OU via lhmObjectId
+      operationId: getOuByLhmObjectId
+      parameters:
+        - name: lhmObjectId
+          in: path
+          description: lhmObjectId der OU
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LdapOuDTO"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server Error
+  /v1/ldap/ou/search/findByOu:
+    get:
+      tags:
+        - OU
+      summary: Lookup einer OU via OU Kurzbezeichnung
+      operationId: findOuByOuShortcode
+      parameters:
+        - name: ou
+          in: query
+          description: OU Kurzbezeichnung (z.B. ITM-KM21)
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LdapOuDTO"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server Error
+components:
+  schemas:
+    AnschriftDTO:
+      type: object
+      properties:
+        strasse:
+          type: string
+          example: "Marienplatz 1"
+        plz:
+          type: string
+          example: "80331"
+        ort:
+          type: string
+          example: "München"
+    LdapUserDTO:
+      type: object
+      properties:
+        lhmObjectId:
+          type: string
+          example: "123456789"
+        uid:
+          type: string
+          example: "erika.musterfrau"
+        anrede:
+          type: string
+          example: "Frau"
+        vorname:
+          type: string
+          example: "Erika"
+        nachname:
+          type: string
+          example: "Musterfrau"
+        cn:
+          type: string
+          example: "Erika Musterfrau"
+        ou:
+          type: string
+          example: "REF-A1"
+        lhmOULongname:
+          type: string
+          example: "Abteilung 1"
+        lhmObjectPath:
+          type: string
+          example: "ou=Abteilung 1,ou=REF,o=LHM,c=de"
+        lhmOberOrga:
+          type: string
+          example: "Referat"
+        lhmReferatName:
+          type: string
+          example: "REF"
+        lhmFunctionalTitle:
+          type: string
+          example: "Lösungsberater"
+        amtsbezeichnung:
+          type: string
+          example: "Tech.Af"
+        erreichbarkeit:
+          type: string
+        mail:
+          type: string
+          example: "erika.musterfrau@muenchen.de"
+        lhmOrgaMail:
+          type: string
+          example: "ref.abteilung1@muenchen.de"
+        telephoneNumber:
+          type: string
+          example: "089 / 32 16 8"
+        facsimileTelephoneNumber:
+          type: string
+          example: "089 / 32 16 8"
+        mobile:
+          type: string
+          example: "089 / 32 16 8"
+        zimmer:
+          type: string
+          example: "EG.001"
+        postanschrift:
+          $ref: "#/components/schemas/AnschriftDTO"
+        bueroanschrift:
+          $ref: "#/components/schemas/AnschriftDTO"
+        personalTitle:
+          type: string
+    LdapBaseUserDTO:
+      type: object
+      properties:
+        lhmObjectId:
+          type: string
+          example: "123456789"
+        uid:
+          type: string
+          example: "erika.musterfrau"
+        anrede:
+          type: string
+          example: "Frau"
+        vorname:
+          type: string
+          example: "Erika"
+        nachname:
+          type: string
+          example: "Musterfrau"
+        cn:
+          type: string
+          example: "Erika Musterfrau"
+        ou:
+          type: string
+          example: "REF-A1"
+    LdapOuDTO:
+      type: object
+      properties:
+        lhmObjectId:
+          type: string
+          example: "123456789"
+        ou:
+          type: string
+          example: "REF-A1"
+        lhmOUKey:
+          type: string
+        lhmOULongname:
+          type: string
+          example: "Abteilung 1"
+        lhmOUShortname:
+          type: string
+          example: "REF-A1"
+        postalCode:
+          type: string
+          example: "80331"
+        street:
+          type: string
+          example: "Marienplatz 8"
+        mail:
+          type: string
+          example: "ref.abteilung1@muenchen.de"
+        telephoneNumber:
+          type: string
+          example: "089 / 32 16 8"
+        facsimileTelephoneNumber:
+          type: string
+          example: "089 / 32 16 8"
+        leitung:
+          $ref: "#/components/schemas/LdapUserDTO"
+        stellvertretung:
+          $ref: "#/components/schemas/LdapUserDTO"
