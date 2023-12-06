@@ -36,6 +36,7 @@
     "vuetify": "^3.3.0"
   },
   "devDependencies": {
+    "@muenchen/prettier-codeformat": "^1.0.1",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/gitlab": "^9.5.1",
     "@types/jest": "^29.2.4",
@@ -83,5 +84,6 @@
     "rules": {
       "vue/multi-word-component-names": "off"
     }
-  }
+  },
+  "prettier": "@muenchen/prettier-codeformat"
 }
