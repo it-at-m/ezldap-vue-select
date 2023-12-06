@@ -5,7 +5,7 @@ import vuetify from "vite-plugin-vuetify";
 // https://vitejs.dev/config/
 export default defineConfig({
   // GitLab pages is served with additional contextPath
-  base: "/ezLDAP/ezldap-vue-select/",
+  base: "/ezldap-vue-select/",
   plugins: [
     vue(),
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
