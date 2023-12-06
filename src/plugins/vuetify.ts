@@ -8,21 +8,20 @@
 import "@mdi/font/css/materialdesignicons.css";
 import "vuetify/styles";
 
-// Iconset
-import { mdi } from "vuetify/iconsets/mdi";
-
 // Composables
 import { createVuetify } from "vuetify";
+// Iconset
+import { mdi } from "vuetify/iconsets/mdi";
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   icons: {
     defaultSet: "mdi",
-    sets: { mdi }
+    sets: { mdi },
   },
   defaults: {
     VBtn: {
-      variant: "outlined"
-    }
-  }
+      variant: "outlined",
+    },
+  },
 });

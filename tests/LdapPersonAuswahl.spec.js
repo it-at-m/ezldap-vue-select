@@ -1,11 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
+import { describe, expect, it, vi } from "vitest";
+import { nextTick } from "vue";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
-import * as directives from "vuetify/directives";
 import { VAutocomplete } from "vuetify/components";
-import { nextTick } from "vue";
+import * as directives from "vuetify/directives";
+
 import { LdapPersonAuswahl } from "../src/components/index";
-import { describe, it, vi, expect } from "vitest";
 
 describe("LdapPersonAuswahl.vue", () => {
   // eslint-disable-next-line no-unused-vars
@@ -15,15 +16,15 @@ describe("LdapPersonAuswahl.vue", () => {
     lhmObjectId: "123456789",
     uid: "vorname.nachname",
     cn: "Vorname Nachname",
-    ou: "ABO-123"
+    ou: "ABO-123",
   };
 
   it("kann über modelValue prop (v-model) initialisiert werden", async () => {
     const wrapper = shallowMount(LdapPersonAuswahl, {
       props: {
         label: "my custom label",
-        modelValue: initialValue
-      }
+        modelValue: initialValue,
+      },
     });
     await nextTick();
 
@@ -33,8 +34,8 @@ describe("LdapPersonAuswahl.vue", () => {
   it("hat eine default-id", async () => {
     const wrapper = shallowMount(LdapPersonAuswahl, {
       props: {
-        modelValue: null
-      }
+        modelValue: null,
+      },
     });
     console.log(wrapper.html());
     await nextTick();
@@ -46,8 +47,8 @@ describe("LdapPersonAuswahl.vue", () => {
     const wrapper = shallowMount(LdapPersonAuswahl, {
       props: {
         modelValue: null,
-        id: "my-custom-id"
-      }
+        id: "my-custom-id",
+      },
     });
 
     expect(wrapper.find("#my-custom-id").exists()).toBe(true);
@@ -59,8 +60,8 @@ describe("LdapPersonAuswahl.vue", () => {
         modelValue: null,
         density: "compact",
         variant: "outlined",
-        unknownprop: "unknownValue"
-      }
+        unknownprop: "unknownValue",
+      },
     });
 
     let vAutocompleteStub = wrapper.findComponent(VAutocomplete);
@@ -78,8 +79,8 @@ describe("LdapPersonAuswahl.vue", () => {
     const onChange = vi.fn();
     const wrapper = shallowMount(LdapPersonAuswahl, {
       props: {
-        "onUpdate:modelValue": (e) => onChange(e)
-      }
+        "onUpdate:modelValue": (e) => onChange(e),
+      },
     });
     let vAutocompleteStub = wrapper.findComponent(VAutocomplete);
     vAutocompleteStub.vm.$emit("update:modelValue", {});

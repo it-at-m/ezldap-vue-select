@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { reactive, ref, computed, VueElement } from "vue";
-import { LdapPersonAuswahl } from "./components/index";
+import { computed, reactive, ref, VueElement } from "vue";
 import { useTheme } from "vuetify";
+
+import { LdapPersonAuswahl } from "./components/index";
 
 export type VForm = VueElement & {
   validate: () => boolean;
@@ -14,16 +15,16 @@ const theme = useTheme();
 const backends = [
   {
     value: "https://virtserver.swaggerhub.com/ITMKM23/ezLDAP/2.0.5",
-    title: "virtserver.swaggerhub.com"
+    title: "virtserver.swaggerhub.com",
   },
   {
     value: "https://ezldap.muenchen.de",
-    title: "https://ezldap.muenchen.de"
+    title: "https://ezldap.muenchen.de",
   },
   {
     value: "https://ezldap-testldap.apps.capk.muenchen.de",
-    title: "https://ezldap-testldap.apps.capk.muenchen.de"
-  }
+    title: "https://ezldap-testldap.apps.capk.muenchen.de",
+  },
 ];
 
 const inputVariants = ["solo", "outlined", "filled", "underlined", "plain"];
@@ -45,7 +46,7 @@ const defaultState = {
   inputVariant: undefined,
   initialLookup: true,
   slotVariant: "ezldap-default",
-  disabled: false
+  disabled: false,
 };
 
 const configDrawer = ref<boolean>();
@@ -63,7 +64,7 @@ const state = reactive({
   initialLookup: defaultState.initialLookup,
   slotVariant: defaultState.slotVariant,
   noDataText: defaultState.noDataText,
-  disabled: defaultState.disabled
+  disabled: defaultState.disabled,
 });
 
 const computedRules = computed(() => {
@@ -74,7 +75,7 @@ const computedRules = computed(() => {
           !v ||
           !Array.isArray(v) ||
           v.length > 0 ||
-          "Required validation rule text!!"
+          "Required validation rule text!!",
       ];
     } else {
       return [(v: any) => !!v || "Required validation rule text!!"];
@@ -88,22 +89,22 @@ const initialData1 = {
   lhmObjectId: "123456789",
   uid: "erika.musterfrau",
   cn: "Erika Musterfrau",
-  ou: "REF-A1"
+  ou: "REF-A1",
 };
 
 const initialData2 = {
   lhmObjectId: "987654321",
   uid: "max.mustermann",
   cn: "Max Mustermann",
-  ou: "REF-A2"
+  ou: "REF-A2",
 };
 
 const initialDataWithLookup = {
-  lhmObjectId: "123456789"
+  lhmObjectId: "123456789",
 };
 
 const initialDataWithLookupUid = {
-  uid: "erika.musterfrau"
+  uid: "erika.musterfrau",
 };
 
 const demoForm = ref();
@@ -186,7 +187,10 @@ function onLoading(isLoading: boolean) {
 <template>
   <v-app>
     <v-app-bar>
-      <v-avatar size="32" image="/logo.svg" />
+      <v-avatar
+        size="32"
+        image="/logo.svg"
+      />
       <v-toolbar-title class="ps-2"
         >LdapPersonAuswahl - Demo Page</v-toolbar-title
       >
@@ -300,11 +304,18 @@ function onLoading(isLoading: boolean) {
           <v-divider />
         </v-card-text>
         <v-card-actions>
-          <v-btn color="secondary" variant="elevated" @click="toggleTheme"
+          <v-btn
+            color="secondary"
+            variant="elevated"
+            @click="toggleTheme"
             >Toggle theme</v-btn
           >
           <v-spacer />
-          <v-btn color="primary" variant="elevated" @click="resetDemoSettings">
+          <v-btn
+            color="primary"
+            variant="elevated"
+            @click="resetDemoSettings"
+          >
             <template #prepend>
               <v-icon>mdi-refresh</v-icon>
             </template>
@@ -314,10 +325,17 @@ function onLoading(isLoading: boolean) {
       </v-card>
     </v-navigation-drawer>
     <v-main>
-      <v-snackbar v-model="snackbar" :timeout="snackbarTimeout">
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="snackbarTimeout"
+      >
         {{ snackbarText }}
         <template #actions>
-          <v-btn color="blue" variant="text" @click="snackbar = false">
+          <v-btn
+            color="blue"
+            variant="text"
+            @click="snackbar = false"
+          >
             Close
           </v-btn>
         </template>

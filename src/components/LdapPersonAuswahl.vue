@@ -1,7 +1,8 @@
 <script lang="ts"></script>
 
 <script setup lang="ts">
-import { ref, watch, useAttrs } from "vue";
+import { ref, useAttrs, watch } from "vue";
+
 import { ApiError, ERROR } from "./error";
 
 type Props = {
@@ -22,7 +23,7 @@ const props: Props = withDefaults(defineProps<Props>(), {
   mucatarMode: "404",
   id: "ldap-person-auswahl",
   initialLookup: false,
-  defaultSlots: true
+  defaultSlots: true,
 });
 
 const emit = defineEmits<{
@@ -90,7 +91,7 @@ function _extractData(lookedupUser: any) {
     ou: lookedupUser.ou,
     anrede: lookedupUser.anrede,
     vorname: lookedupUser.vorname,
-    nachname: lookedupUser.nachname
+    nachname: lookedupUser.nachname,
   };
 }
 
@@ -119,7 +120,7 @@ async function _performLookupRequest(url: string) {
   isLoading.value = true;
   try {
     let response = await fetch(url, {
-      mode: "cors"
+      mode: "cors",
     });
     if (response.ok) {
       return await response.json();
@@ -155,7 +156,7 @@ async function _performSearchRequest(baseUrl: string, val: string) {
     let response = await fetch(
       `${baseUrl}/v1/ldap/search/findByUidWildcard?uid=*${val}*`,
       {
-        mode: "cors"
+        mode: "cors",
       }
     );
     if (response.ok) {
@@ -210,7 +211,10 @@ const debouncedSearch = debounce(_performSearchRequest);
     @update:model-value="$emit('update:modelValue', $event)"
   >
     <!-- default selection slot -->
-    <template v-if="props.defaultSlots" #selection="data">
+    <template
+      v-if="props.defaultSlots"
+      #selection="data"
+    >
       <template v-if="data.item.raw.cn && data.item.raw.ou">
         {{ data.item.raw.cn }} ({{ data.item.raw.ou }})
       </template>
@@ -222,7 +226,10 @@ const debouncedSearch = debounce(_performSearchRequest);
       </template>
     </template>
     <!-- default item slot -->
-    <template v-if="props.defaultSlots" #item="itemSlot">
+    <template
+      v-if="props.defaultSlots"
+      #item="itemSlot"
+    >
       <v-list-item
         :data-testid="`${props.id}-${itemSlot.item.raw.uid}`"
         v-bind="itemSlot.props"
