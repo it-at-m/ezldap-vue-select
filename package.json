@@ -28,7 +28,8 @@
     "coverage": "vitest run --coverage",
     "preview": "vite preview",
     "semantic-release": "semantic-release",
-    "lint": "eslint . --fix --ignore-path .gitignore"
+    "lint": "eslint . --fix --ignore-path .gitignore",
+    "cy:run": "cypress run --component"
   },
   "peerDependencies": {
     "@mdi/font": "> 5",
