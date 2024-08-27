@@ -39,8 +39,7 @@ Cypress.Commands.add("mount", (component, options = {}) => {
   // Setup options object
   options.global = options.global || {};
   options.global.stubs = options.global.stubs || {};
-  options.global.stubs["transition"] = false;
-  options.global.stubs["transition-group"] = false;
+  // options.global.stubs.transition = false;
   options.global.components = options.global.components || {};
   options.global.plugins = options.global.plugins || [];
 
@@ -53,6 +52,3 @@ Cypress.Commands.add("mount", (component, options = {}) => {
 
   return mount(component, options);
 });
-
-// Example use:
-// cy.mount(MyComponent)

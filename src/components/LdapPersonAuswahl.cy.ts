@@ -2,6 +2,7 @@ import LdapPersonAuswahl from "./LdapPersonAuswahl.vue";
 
 describe("<LdapPersonAuswahl />", () => {
   it("renders", () => {
+    // intercept api and mucatar requests
     cy.intercept(
       "GET",
       "http://api.example.com/v1/ldap/search/findByUidWildcard?uid=*",
@@ -15,7 +16,7 @@ describe("<LdapPersonAuswahl />", () => {
     cy.intercept("GET", "http://mucatar.example.com/avatar?uid=amicha*", {
       fixture: "avatar.png,null",
     }).as("mucatarRequestAmicha");
-    // see: https://on.cypress.io/mounting-vue
+
     cy.mount(LdapPersonAuswahl, {
       props: {
         label: "the custom label",
@@ -51,5 +52,14 @@ describe("<LdapPersonAuswahl />", () => {
         "src",
         "http://mucatar.example.com/avatar?uid=michaela.miller&m=404"
       );
+
+    cy.get(
+      '[data-testid="ldap-person-auswahl-michaela.miller"] .v-list-item-title'
+    ).click();
+
+    cy.get(".v-autocomplete__selection").should(
+      "contain.text",
+      "Michaela Miller (ORG-A2-A24)"
+    );
   });
 });
