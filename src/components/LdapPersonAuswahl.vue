@@ -1,5 +1,3 @@
-<script lang="ts"></script>
-
 <script setup lang="ts">
 import { ref, useAttrs, watch } from "vue";
 
@@ -99,7 +97,7 @@ if (props.modelValue) {
   updateValue(props.modelValue);
 }
 
-watch(search, (newVal: any, _oldVal: any) => {
+watch(search, (newVal: any) => {
   if (newVal && newVal.length >= 3) {
     debouncedSearch(props.baseUrl, newVal);
   }
@@ -107,12 +105,12 @@ watch(search, (newVal: any, _oldVal: any) => {
 
 watch(
   () => props.modelValue,
-  (newVal, _oldVal) => {
+  (newVal) => {
     updateValue(newVal);
   }
 );
 
-watch(isLoading, (newVal: boolean, _oldVal: boolean) => {
+watch(isLoading, (newVal: boolean) => {
   emit("loading", newVal);
 });
 

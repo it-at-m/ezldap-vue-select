@@ -1,0 +1,20 @@
+[
+  {
+    "lhmObjectId": "1234",
+    "uid": "amicha.miller",
+    "anrede": "Herr",
+    "vorname": "Amicha",
+    "nachname": "Miller",
+    "cn": "Amicha Miller",
+    "ou": "ORG-A1-A12"
+  },
+  {
+    "lhmObjectId": "1235",
+    "uid": "michaela.miller",
+    "anrede": "Frau",
+    "vorname": "Michaela",
+    "nachname": "Miller",
+    "cn": "Michaela Miller",
+    "ou": "ORG-A2-A24"
+  }
+]

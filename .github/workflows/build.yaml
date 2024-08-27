@@ -42,6 +42,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm run coverage
+      - run: npm run cy:run
       - run: npm run build
       - name: run semantic-release
         env:
