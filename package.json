@@ -46,7 +46,7 @@
     "@vue/test-utils": "^2.3.2",
     "cypress": "^13.13.3",
     "eslint": "^8.41.0",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-vue": "^9.14.1",
     "eslint-plugin-vuetify": "^2.0.1",
     "jsdom": "^26.0.0",
