@@ -58,7 +58,7 @@
     "vite": "^4.3.9",
     "vite-plugin-dts": "^4.0.0",
     "vite-plugin-eslint": "^1.8.1",
-    "vite-plugin-vuetify": "^1.0.2",
+    "vite-plugin-vuetify": "^2.0.0",
     "vitest": "^3.0.0",
     "vue-tsc": "^2.0.0"
   },
