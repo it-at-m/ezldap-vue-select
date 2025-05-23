@@ -3,7 +3,6 @@ import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import eslintPlugin from "vite-plugin-eslint";
 import vuetify from "vite-plugin-vuetify";
 
 // https://vitejs.dev/config/
@@ -13,9 +12,6 @@ export default defineConfig({
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
     vuetify({
       autoImport: true,
-    }),
-    eslintPlugin({
-      fix: true,
     }),
     dts(),
   ],
