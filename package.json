@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "^1.0.1",
-    "@types/jest": "^29.2.4",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.0.0",
     "@vitejs/plugin-vue": "^5.0.0",
     "@vitest/coverage-v8": "^3.1.4",
