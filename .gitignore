@@ -26,3 +26,7 @@ dist-ssr
 
 ## Test results
 coverage/*
+
+# TypeScript cache
+*.tsbuildinfo
+cache/
