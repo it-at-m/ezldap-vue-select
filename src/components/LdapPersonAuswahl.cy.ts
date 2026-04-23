@@ -1,5 +1,6 @@
 import LdapPersonAuswahl from "./LdapPersonAuswahl.vue";
 
+
 describe("<LdapPersonAuswahl />", () => {
   it("renders", () => {
     // intercept api and mucatar requests
@@ -26,9 +27,11 @@ describe("<LdapPersonAuswahl />", () => {
       },
     });
 
+    cy.get("#ldap-person-auswahl").click({ force: true });
     cy.get("#ldap-person-auswahl").type("mich", { force: true });
 
     cy.wait("@anyApiRequest");
+    cy.get(".v-overlay-container", { timeout: 1000 }).should("exist");
     cy.get(
       '[data-testid="ldap-person-auswahl-amicha.miller"] .v-list-item-title'
     ).contains("Amicha Miller");
