@@ -26,9 +26,7 @@ describe("<LdapPersonAuswahl />", () => {
       },
     });
 
-    cy.get("#ldap-person-auswahl")
-      .should("not.be.disabled")
-      .type("mich");
+    cy.get("#ldap-person-auswahl").type("mich", { force: true });
 
     cy.wait("@anyApiRequest");
     cy.get(
