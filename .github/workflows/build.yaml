@@ -31,6 +31,12 @@ jobs:
       - run: npm ci
       - run: npm run coverage
       - run: npm run cy:run
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+            name: cypress-screenshots
+            path: cypress/screenshots
       - run: npm run build
       - name: run semantic-release
         env:
