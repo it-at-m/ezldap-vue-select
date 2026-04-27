@@ -30,7 +30,11 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm run coverage
-      - run: npm run cy:run
+      - uses: cypress-io/github-action@v7
+        with:
+          browser: chrome
+          headed: true
+      # - run: npm run cy:run
       - name: Upload screenshots
         uses: actions/upload-artifact@v7
         if: failure()
