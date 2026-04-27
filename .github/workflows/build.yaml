@@ -32,6 +32,7 @@ jobs:
       - run: npm run coverage
       - uses: cypress-io/github-action@v7
         with:
+          component: true
           browser: chrome
           headed: true
       # - run: npm run cy:run
