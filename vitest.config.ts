@@ -1,21 +1,24 @@
-import vue from "@vitejs/plugin-vue";
-import vuetify from "vite-plugin-vuetify";
-import { defineConfig } from "vitest/config";
+import { fileURLToPath, URL } from "node:url";
 
-// https://vitest.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    vuetify({
-      autoImport: true,
-    }),
-  ],
-  test: {
-    globals: true,
-    environment: "jsdom",
-    deps: {
-      inline: ["vuetify"],
-    },
-    setupFiles: "tests/setup.js",
-  },
-});
+import { defineConfig, mergeConfig } from "vitest/config";
+
+import viteConfig from "./vite.config";
+
+export default defineConfig((configEnv) =>
+  mergeConfig(
+    viteConfig(configEnv),
+    defineConfig({
+      test: {
+        globals: true,
+        environment: "jsdom",
+        root: fileURLToPath(new URL("./", import.meta.url)),
+        server: {
+          deps: {
+            inline: ["vuetify"],
+          },
+        },
+        setupFiles: "tests/setup.js",
+      },
+    })
+  )
+);
