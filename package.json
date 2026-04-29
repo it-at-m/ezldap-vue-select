@@ -34,7 +34,7 @@
   "peerDependencies": {
     "@mdi/font": "> 5",
     "vue": "^3.2.0",
-    "vuetify": "^3.3.0"
+    "vuetify": "^3.3.0 || ^4.0.0"
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "^1.0.1",
